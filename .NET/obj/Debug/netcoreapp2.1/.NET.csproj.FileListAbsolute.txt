@@ -1,0 +1,4 @@
+C:\Users\Samuel\Source\Repos\ProjectAldehyde\.NET\obj\Debug\netcoreapp2.1\.NET.csprojAssemblyReference.cache
+C:\Users\Samuel\Source\Repos\ProjectAldehyde\.NET\obj\Debug\netcoreapp2.1\.NET.csproj.CoreCompileInputs.cache
+C:\Users\Samuel\Source\Repos\ProjectAldehyde\.NET\obj\Debug\netcoreapp2.1\.NET.AssemblyInfoInputs.cache
+C:\Users\Samuel\Source\Repos\ProjectAldehyde\.NET\obj\Debug\netcoreapp2.1\.NET.AssemblyInfo.cs

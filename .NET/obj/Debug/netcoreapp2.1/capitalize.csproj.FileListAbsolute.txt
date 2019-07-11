@@ -1,0 +1,11 @@
+C:\Users\Samuel\source\repos\ProjectAldehyde\.NET\bin\Debug\netcoreapp2.1\capitalize.deps.json
+C:\Users\Samuel\source\repos\ProjectAldehyde\.NET\bin\Debug\netcoreapp2.1\capitalize.runtimeconfig.json
+C:\Users\Samuel\source\repos\ProjectAldehyde\.NET\bin\Debug\netcoreapp2.1\capitalize.runtimeconfig.dev.json
+C:\Users\Samuel\source\repos\ProjectAldehyde\.NET\bin\Debug\netcoreapp2.1\capitalize.dll
+C:\Users\Samuel\source\repos\ProjectAldehyde\.NET\bin\Debug\netcoreapp2.1\capitalize.pdb
+C:\Users\Samuel\source\repos\ProjectAldehyde\.NET\obj\Debug\netcoreapp2.1\capitalize.csprojAssemblyReference.cache
+C:\Users\Samuel\source\repos\ProjectAldehyde\.NET\obj\Debug\netcoreapp2.1\capitalize.csproj.CoreCompileInputs.cache
+C:\Users\Samuel\source\repos\ProjectAldehyde\.NET\obj\Debug\netcoreapp2.1\capitalize.AssemblyInfoInputs.cache
+C:\Users\Samuel\source\repos\ProjectAldehyde\.NET\obj\Debug\netcoreapp2.1\capitalize.AssemblyInfo.cs
+C:\Users\Samuel\source\repos\ProjectAldehyde\.NET\obj\Debug\netcoreapp2.1\capitalize.dll
+C:\Users\Samuel\source\repos\ProjectAldehyde\.NET\obj\Debug\netcoreapp2.1\capitalize.pdb
