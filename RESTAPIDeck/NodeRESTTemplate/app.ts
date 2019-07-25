@@ -1,8 +1,8 @@
 import express = require('express');
 import path = require('path');
+import { v1 as uuid } from 'uuid';
 
 const app = express.application = express();
-const uuidv1 = require('uuid/v1');
 
 app.use('/assets', express.static('assets'));
 app.use(express.urlencoded());
@@ -28,13 +28,15 @@ app.route('/register')
     .post(function (req, res) {
         if (isNameCorrect(req.body.name) && isJobCorrect(req.body.job) && isAgeCorrect(req.body.age)) {
             var profile: object = {
-                "id": uuidv1(),
+                "id": uuid(),
                 "name": req.body.name,
                 "job": req.body.job,
                 "age": req.body.age
             }
             database.push(profile);
-            res.render('register-success', { data: req.body });
+            //res.render('register-success', { data: req.body });
+            res.status(201);
+            res.end(JSON.stringify(profile));
         } else {
             res.status(400);
             res.send("400: Error in Registered Profile");
@@ -43,14 +45,16 @@ app.route('/register')
 
 app.route('/members')
     .get(function (req, res) {
-        res.render('members', { data: database});
+        //res.render('members', { data: database});
+        res.end(JSON.stringify(database));
     })
 
 app.route('/members/:memberNameOrID')
     .get(function (req, res) {
         let nameOrID: string = req.params.memberNameOrID;
         let searchResult: object[] = (isGUID(nameOrID)) ? [database[searchByID(database, nameOrID)]] : searchByName(database, nameOrID);
-        res.render('members', { data: searchResult});
+        //res.render('members', { data: searchResult});
+        res.end(JSON.stringify(searchResult));
     })
     .put(function (req, res) {
         let nameOrID: string = req.params.memberNameOrID;
@@ -65,7 +69,8 @@ app.route('/members/:memberNameOrID')
             let index: number = searchByID(database, nameOrID);
             database.splice(index, 1);
             database.push(profile);
-            res.render('update-success', { data: req.body });
+            //res.render('update-success', { data: req.body });
+            res.end(JSON.stringify(profile));
         } else {
             res.status(400);
             res.send("400: Error in Updated Profile");
@@ -76,7 +81,8 @@ app.route('/members/:memberNameOrID')
         if (!isGUID(nameOrID)) res.sendStatus(400);
         let index: number = searchByID(database, nameOrID);
         database.splice(index, 1);
-        res.render('delete-success', { data: nameOrID });
+        //res.render('delete-success', { data: nameOrID });
+        res.sendStatus(204);
     })
 
 app.listen(8080, function () {
@@ -92,7 +98,7 @@ app.listen(8080, function () {
 
 
 function isNameCorrect(name: string): boolean {
-    return /^[a-zA-Z]+$/.test(name);
+    return /^[a-zA-Z ]*$/.test(name);
 }
 
 function isGUID(input: string): boolean {
@@ -117,8 +123,6 @@ function searchByID(database: any[], id: string): number {
 
 function matchStringFragment(input: string, fullName: string): boolean {
     let copyName: string = fullName;
-    console.log(input);
-    console.log(copyName);
     while (copyName.length > 0) {
         if (checkString(input, copyName) == input.length) {
             return true;
@@ -135,7 +139,6 @@ function checkString(input: string, ref: string): number {
     let refString: string = ref.toLowerCase();
     for (var i = 0; i < inputString.length && inputString[i] == refString[i] ; i++) {
         charCount += 1;
-        console.log(charCount);
     }
     return Math.max(1, charCount);
 }
