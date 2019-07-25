@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <link href="/assets/index.css" rel="stylesheet" type="text/css" />
+    <title>Most Awesome Page in the World!</title>
+</head>
+<body>
+    <% include partials/nav.ejs %>
+    <h1>Registration Page</h1>
+    <p>You will soon be one of us!</p>
+
+    <form class="main-body" id="registration-form" method="POST" action="/register">
+        <input class="form-input" type="text" name="name" placeholder="Name" /> <br />
+        <input class="form-input" type="text" name="job" placeholder="Job" /><br />
+        <input class="form-input" type="text" name="age" placeholder="Age" /><br />
+        <input class="form-input" type="submit" value="Submit" />
+    </form>
+
+</body>
+</html>

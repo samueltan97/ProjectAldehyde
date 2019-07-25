@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <link href="/assets/index.css" rel="stylesheet" type="text/css" />
+    <title>Most Awesome Page in the World!</title>
+</head>
+<body>
+    <% include partials/nav.ejs %>
+    <h1>Profile ID: <%=id %> </h1>
+    <p>Company: <%=profile.company %> </p>
+    <p>Job: <%=profile.job %> </p>
+    <ul>
+        <% profile.hobbies.forEach(function(hobby) { %>
+        
+        <li>
+            <%= hobby %>
+        </li>
+        
+        <% }) %>
+    </ul>
+</body>
+</html>

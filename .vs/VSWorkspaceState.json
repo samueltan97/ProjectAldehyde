@@ -1,12 +1,16 @@
 {
   "ExpandedNodes": [
     "",
+    "\\BackEndFam",
+    "\\BackEndFam\\NodeJS",
     "\\FrontEndFam",
     "\\FrontEndFam\\assets",
     "\\Go",
+    "\\Go\\BackEndFam",
+    "\\Go\\BackEndFam\\static",
     "\\Go\\capitalize",
     "\\NodeJS"
   ],
-  "SelectedNode": "\\FrontEndFam\\index.js",
+  "SelectedNode": "\\BackEndFam\\NodeJS\\app.ts",
   "PreviewInSolutionExplorer": false
 }
