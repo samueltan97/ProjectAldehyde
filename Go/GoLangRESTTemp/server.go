@@ -10,80 +10,70 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func main() {
-	database := make(map[string]Member, 100) 
-	http.Handle("/register", NewRepoHTTPHandler(database, RegisterHandler))
-	http.Handle("/members", NewRepoHTTPHandler(database, MembersHandler))
-	log.Fatal(http.ListenAndServe(":8080", nil))
-}
-
-type RequestMember struct {
-	Name string `json:"name"`
-	Job string `json:"job"`
-	Age int `json:"age"`
-}
-
 type Member struct {
-	Id string	`json:"id"`
+	Id string `json:"id"`
 	Name string `json:"name"`
 	Job string `json:"job"`
 	Age int `json:"age"`
 }
 
-type RepoHTTPHandler struct {
-      repo map[string]Member
-	  handler func(http.ResponseWriter, *http.Request, map[string]Member)
-    }
-    func (th *RepoHTTPHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-		th.handler(w, r, th.repo)
-    }
 
-func NewRepoHTTPHandler(repo map[string]Member, handler func(http.ResponseWriter, *http.Request, map[string]Member)) *RepoHTTPHandler {
-			fmt.Println("Built")
-	return &RepoHTTPHandler{repo, handler}
-}
-
-func RegisterHandler(w http.ResponseWriter, r *http.Request, repo map[string]Member) {
-		fmt.Println("Serving")
-		decoder := json.NewDecoder(r.Body)
-		var data RequestMember
-		err := decoder.Decode(&data)
+func CreateMemberHandler(w http.ResponseWriter, r *http.Request) {
+		var member Member
+		err := json.NewDecoder(r.Body).Decode(&member)
 		if err != nil {
-			fmt.Print(err, "help")
+			w.WriteHeader(http.StatusBadRequest)
 		}
-
-		var newMember Member
-		newMember.Id = generateGUID()
-		newMember.Name = data.Name
-		newMember.Job = data.Job
-		newMember.Age = data.Age
-
-		repo[newMember.Id] = newMember
-
-		newMemberString, jsonMarshalerr := json.Marshal(newMember)
-		if jsonMarshalerr != nil {
-			fmt.Println(jsonMarshalerr)
-			return
-		}
-		fmt.Fprintf(w, string(newMemberString));
+		member.Id = generateGUID()
+		members = append(members, member)
+		w.WriteHeader(http.StatusCreated)
+		json.NewEncoder(w).Encode(member)
 }
 
-func MembersHandler(w http.ResponseWriter, r *http.Request, repo map[string]Member) {
-	if r.URL.RequestURI() == "/members" {
-        arr := []Member{} 
-		for _, value := range repo {  
-			arr = append(arr, value)
+func GetAllMembersHandler(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(members)	
+}
+
+func GetMemberHandler(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+		for _, member := range members {
+			if member.Id == params["id"] {
+				json.NewEncoder(w).Encode(member)
+				return
+			}
 		}
-		memberString, jsonMarshalerr := json.Marshal(arr)
-		if jsonMarshalerr != nil {
-			fmt.Println(jsonMarshalerr)
-			return
+		w.WriteHeader(http.StatusOK)
+		json.NewEncoder(w).Encode(&Member{})
+}
+
+func PutMemberHandler(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	var member Member
+	err := json.NewDecoder(r.Body).Decode(&member)
+	if err != nil {
+			w.WriteHeader(http.StatusBadRequest)
+	}
+	member.Id = params["id"]
+	if indexOf(params["id"], members) >= 0 	{
+		members[indexOf(params["id"], members)] = member
+		json.NewEncoder(w).Encode(member)
+	} else {
+		w.WriteHeader(http.StatusNotFound)
+	}
+}
+
+func DeleteMemberHandler(w http.ResponseWriter, r *http.Request) {
+    params := mux.Vars(r)
+    for index, member := range members {
+        if member.Id == params["id"] {
+            members = append(members[:index], members[index+1:]...)
+            break
+        } else {
+					w.WriteHeader(http.StatusNotFound)
 		}
-		fmt.Fprintf(w, string(memberString));
-    } else {
-        fmt.Println(r.URL.RequestURI())
-        fmt.Println("7 is odd")
     }
+    json.NewEncoder(w).Encode(members)
 }
 
 func generateGUID() string {
@@ -95,6 +85,28 @@ func generateGUID() string {
 	uuid := fmt.Sprintf("%x-%x-%x-%x-%x",
     b[0:4], b[4:6], b[6:8], b[8:10], b[10:])
 	return uuid
+}
+
+func indexOf(word string, members []Member) int {
+    for index, member := range members {
+        if word == member.Id {
+            return index
+        }
+    }
+    return -1
+}
+
+var members []Member
+
+func main() {
+	router := mux.NewRouter()
+	members = append(members, Member{Id:"153a77a4-0f5f-5ae6-447c-548995440113", Name:"Samuel",Job:"Developer", Age:15})
+	router.HandleFunc("/register", CreateMemberHandler).Methods("POST")
+	router.HandleFunc("/members", GetAllMembersHandler).Methods("GET")
+	router.HandleFunc("/members/{id}", GetMemberHandler).Methods("GET")
+	router.HandleFunc("/members/{id}", PutMemberHandler).Methods("PUT")
+	router.HandleFunc("/members/{id}", DeleteMemberHandler).Methods("DELETE")
+	log.Fatal(http.ListenAndServe(":8080", router))
 }
 
 
