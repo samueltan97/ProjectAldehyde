@@ -43,8 +43,7 @@ func GetMemberHandler(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 		}
-		w.WriteHeader(http.StatusOK)
-		json.NewEncoder(w).Encode(&Member{})
+		w.WriteHeader(http.StatusNotFound)
 }
 
 func PutMemberHandler(w http.ResponseWriter, r *http.Request) {
@@ -70,10 +69,10 @@ func DeleteMemberHandler(w http.ResponseWriter, r *http.Request) {
             members = append(members[:index], members[index+1:]...)
             break
         } else {
-					w.WriteHeader(http.StatusNotFound)
+			w.WriteHeader(http.StatusNotFound)
 		}
     }
-    json.NewEncoder(w).Encode(members)
+	w.WriteHeader(http.StatusNoContent)
 }
 
 func generateGUID() string {
@@ -101,12 +100,12 @@ var members []Member
 func main() {
 	router := mux.NewRouter()
 	members = append(members, Member{Id:"153a77a4-0f5f-5ae6-447c-548995440113", Name:"Samuel",Job:"Developer", Age:15})
-	router.HandleFunc("/register", CreateMemberHandler).Methods("POST")
+	router.HandleFunc("/members", CreateMemberHandler).Methods("POST")
 	router.HandleFunc("/members", GetAllMembersHandler).Methods("GET")
 	router.HandleFunc("/members/{id}", GetMemberHandler).Methods("GET")
 	router.HandleFunc("/members/{id}", PutMemberHandler).Methods("PUT")
 	router.HandleFunc("/members/{id}", DeleteMemberHandler).Methods("DELETE")
-	log.Fatal(http.ListenAndServe(":8080", router))
+	log.Fatal(http.ListenAndServe(":3000", router))
 }
 
 
