@@ -1,0 +1,14 @@
+C:\Users\Samuel\source\repos\ProjectAldehyde\RESTAPIDeck\NetCoreRESTTemplate\obj\Debug\netcoreapp2.1\NetCoreRESTTemplate.csprojAssemblyReference.cache
+C:\Users\Samuel\source\repos\ProjectAldehyde\RESTAPIDeck\NetCoreRESTTemplate\obj\Debug\netcoreapp2.1\NetCoreRESTTemplate.csproj.CoreCompileInputs.cache
+C:\Users\Samuel\source\repos\ProjectAldehyde\RESTAPIDeck\NetCoreRESTTemplate\obj\Debug\netcoreapp2.1\NetCoreRESTTemplate.RazorAssemblyInfo.cache
+C:\Users\Samuel\source\repos\ProjectAldehyde\RESTAPIDeck\NetCoreRESTTemplate\obj\Debug\netcoreapp2.1\NetCoreRESTTemplate.RazorAssemblyInfo.cs
+C:\Users\Samuel\source\repos\ProjectAldehyde\RESTAPIDeck\NetCoreRESTTemplate\obj\Debug\netcoreapp2.1\NetCoreRESTTemplate.AssemblyInfoInputs.cache
+C:\Users\Samuel\source\repos\ProjectAldehyde\RESTAPIDeck\NetCoreRESTTemplate\obj\Debug\netcoreapp2.1\NetCoreRESTTemplate.AssemblyInfo.cs
+C:\Users\Samuel\source\repos\ProjectAldehyde\RESTAPIDeck\NetCoreRESTTemplate\bin\Debug\netcoreapp2.1\NetCoreRESTTemplate.deps.json
+C:\Users\Samuel\source\repos\ProjectAldehyde\RESTAPIDeck\NetCoreRESTTemplate\bin\Debug\netcoreapp2.1\NetCoreRESTTemplate.runtimeconfig.json
+C:\Users\Samuel\source\repos\ProjectAldehyde\RESTAPIDeck\NetCoreRESTTemplate\bin\Debug\netcoreapp2.1\NetCoreRESTTemplate.runtimeconfig.dev.json
+C:\Users\Samuel\source\repos\ProjectAldehyde\RESTAPIDeck\NetCoreRESTTemplate\bin\Debug\netcoreapp2.1\NetCoreRESTTemplate.dll
+C:\Users\Samuel\source\repos\ProjectAldehyde\RESTAPIDeck\NetCoreRESTTemplate\bin\Debug\netcoreapp2.1\NetCoreRESTTemplate.pdb
+C:\Users\Samuel\source\repos\ProjectAldehyde\RESTAPIDeck\NetCoreRESTTemplate\obj\Debug\netcoreapp2.1\NetCoreRESTTemplate.RazorTargetAssemblyInfo.cache
+C:\Users\Samuel\source\repos\ProjectAldehyde\RESTAPIDeck\NetCoreRESTTemplate\obj\Debug\netcoreapp2.1\NetCoreRESTTemplate.dll
+C:\Users\Samuel\source\repos\ProjectAldehyde\RESTAPIDeck\NetCoreRESTTemplate\obj\Debug\netcoreapp2.1\NetCoreRESTTemplate.pdb
