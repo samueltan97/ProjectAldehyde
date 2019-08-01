@@ -7,10 +7,12 @@
     "\\FrontEndFam\\assets",
     "\\Go",
     "\\Go\\BackEndFam",
-    "\\Go\\BackEndFam\\static",
-    "\\Go\\capitalize",
-    "\\NodeJS"
+    "\\RESTAPIDeck",
+    "\\RESTAPIDeck\\NodeRESTTemplate",
+    "\\RESTAPIDeck\\NodeRESTTemplate\\node_modules",
+    "\\RESTAPIDeck\\NodeRESTTemplate\\node_modules\\express-hateoas-links",
+    "\\RESTAPIDeck\\NodeRESTTemplate\\node_modules\\express-hateoas-links\\lib"
   ],
-  "SelectedNode": "\\BackEndFam\\NodeJS\\app.ts",
+  "SelectedNode": "\\RESTAPIDeck\\NodeRESTTemplate\\node_modules\\express-hateoas-links\\lib\\express-hateoas-links.js",
   "PreviewInSolutionExplorer": false
 }

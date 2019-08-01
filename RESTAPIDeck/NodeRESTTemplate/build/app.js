@@ -23,16 +23,25 @@ app.route('/register')
 })
     .post(function (req, res) {
     if (isNameCorrect(req.body.name) && isJobCorrect(req.body.job) && isAgeCorrect(req.body.age)) {
+        let id = uuid_1.v1();
+        let links = [
+            addHateoasLink(req.url, "create", "POST"),
+            addHateoasLink(req.baseUrl + "/members/" + id, "self", "GET"),
+            addHateoasLink(req.baseUrl + "/members/", "members", "GET"),
+            addHateoasLink(req.baseUrl + "/members/" + id, "edit", "PUT"),
+            addHateoasLink(req.baseUrl + "/members/" + id, "delete", "Delete")
+        ];
         var profile = {
-            "id": uuid_1.v1(),
+            "id": id,
             "name": req.body.name,
             "job": req.body.job,
-            "age": req.body.age
+            "age": req.body.age,
+            "links": links
         };
         database.push(profile);
         //res.render('register-success', { data: req.body });
         res.status(201);
-        res.end(JSON.stringify(profile));
+        res.json(profile);
     }
     else {
         res.status(400);
@@ -42,13 +51,28 @@ app.route('/register')
 app.route('/members')
     .get(function (req, res) {
     //res.render('members', { data: database});
-    res.end(JSON.stringify(database));
+    let links = [
+        addHateoasLink(req.baseUrl + "/register", "create", "POST")
+    ];
+    let data = {
+        "members": database,
+        "links": links
+    };
+    res.json(data);
 });
 app.route('/members/:memberNameOrID')
     .get(function (req, res) {
     let nameOrID = req.params.memberNameOrID;
     let searchResult = (isGUID(nameOrID)) ? [database[searchByID(database, nameOrID)]] : searchByName(database, nameOrID);
     //res.render('members', { data: searchResult});
+    let links = [
+        addHateoasLink(req.baseUrl + "/register", "create", "POST"),
+        addHateoasLink(req.baseUrl + "/members/", "members", "GET")
+    ];
+    let data = {
+        "members": database,
+        "links": links
+    };
     res.end(JSON.stringify(searchResult));
 })
     .put(function (req, res) {
@@ -56,17 +80,25 @@ app.route('/members/:memberNameOrID')
     if (!isGUID(nameOrID))
         res.sendStatus(400);
     if (isNameCorrect(req.body.name) && isJobCorrect(req.body.job) && isAgeCorrect(req.body.age)) {
+        let links = [
+            addHateoasLink(req.baseUrl + "/register", "create", "POST"),
+            addHateoasLink(req.url, "self", "GET"),
+            addHateoasLink(req.baseUrl + "/members/", "members", "GET"),
+            addHateoasLink(req.url, "edit", "PUT"),
+            addHateoasLink(req.url, "delete", "Delete")
+        ];
         var profile = {
             "id": nameOrID,
             "name": req.body.name,
             "job": req.body.job,
-            "age": req.body.age
+            "age": req.body.age,
+            "links": links
         };
         let index = searchByID(database, nameOrID);
         database.splice(index, 1);
         database.push(profile);
         //res.render('update-success', { data: req.body });
-        res.end(JSON.stringify(profile));
+        res.json(profile);
     }
     else {
         res.status(400);
@@ -80,7 +112,13 @@ app.route('/members/:memberNameOrID')
     let index = searchByID(database, nameOrID);
     database.splice(index, 1);
     //res.render('delete-success', { data: nameOrID });
-    res.sendStatus(204);
+    res.status(204);
+    res.json({
+        "links": [
+            addHateoasLink(req.baseUrl + "/register", "create", "POST"),
+            addHateoasLink(req.baseUrl + "/members/", "members", "GET")
+        ]
+    });
 });
 app.listen(8080, function () {
     console.log('Capitalize app listening on port 8080!');
@@ -123,4 +161,12 @@ function checkString(input, ref) {
         charCount += 1;
     }
     return Math.max(1, charCount);
+}
+function addHateoasLink(href, rel, method) {
+    let link = {
+        "href": href,
+        "rel": rel,
+        "method": method
+    };
+    return link;
 }

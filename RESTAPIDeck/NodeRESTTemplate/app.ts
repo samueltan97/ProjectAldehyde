@@ -1,4 +1,4 @@
-import express = require('express');
+﻿import express = require('express');
 import path = require('path');
 import { v1 as uuid } from 'uuid';
 
@@ -27,16 +27,27 @@ app.route('/register')
     })
     .post(function (req, res) {
         if (isNameCorrect(req.body.name) && isJobCorrect(req.body.job) && isAgeCorrect(req.body.age)) {
+            let id: string = uuid();
+            let links: object[] = [
+                addHateoasLink(req.url, "create", "POST"),
+                addHateoasLink(req.baseUrl + "/members/" + id, "self", "GET"),
+                addHateoasLink(req.baseUrl + "/members/", "members", "GET"),
+                addHateoasLink(req.baseUrl + "/members/" + id, "edit", "PUT"),
+                addHateoasLink(req.baseUrl + "/members/" + id, "delete", "Delete")
+            ];
             var profile: object = {
-                "id": uuid(),
+                "id": id,
                 "name": req.body.name,
                 "job": req.body.job,
-                "age": req.body.age
+                "age": req.body.age,
+                "links": links
             }
             database.push(profile);
+            
             //res.render('register-success', { data: req.body });
             res.status(201);
-            res.end(JSON.stringify(profile));
+            res.json(profile);
+    
         } else {
             res.status(400);
             res.send("400: Error in Registered Profile");
@@ -46,7 +57,14 @@ app.route('/register')
 app.route('/members')
     .get(function (req, res) {
         //res.render('members', { data: database});
-        res.end(JSON.stringify(database));
+        let links: object[] = [
+            addHateoasLink(req.baseUrl + "/register", "create", "POST")
+        ];
+        let data: object = {
+            "members": database,
+            "links": links
+        }
+        res.json(data);
     })
 
 app.route('/members/:memberNameOrID')
@@ -54,23 +72,40 @@ app.route('/members/:memberNameOrID')
         let nameOrID: string = req.params.memberNameOrID;
         let searchResult: object[] = (isGUID(nameOrID)) ? [database[searchByID(database, nameOrID)]] : searchByName(database, nameOrID);
         //res.render('members', { data: searchResult});
+        let links: object[] = [
+            addHateoasLink(req.baseUrl + "/register", "create", "POST"),
+            addHateoasLink(req.baseUrl + "/members/", "members", "GET")
+        ];
+        let data: object = {
+            "members": database,
+            "links": links
+        }
         res.end(JSON.stringify(searchResult));
     })
     .put(function (req, res) {
         let nameOrID: string = req.params.memberNameOrID;
         if (!isGUID(nameOrID)) res.sendStatus(400);        
         if (isNameCorrect(req.body.name) && isJobCorrect(req.body.job) && isAgeCorrect(req.body.age)) {
+            let links: object[] = [
+                addHateoasLink(req.baseUrl + "/register", "create", "POST"),
+                addHateoasLink(req.url, "self", "GET"),
+                addHateoasLink(req.baseUrl + "/members/", "members", "GET"),
+                addHateoasLink(req.url, "edit", "PUT"),
+                addHateoasLink(req.url, "delete", "Delete")
+            ];
             var profile: object = {
                 "id": nameOrID,
                 "name": req.body.name,
                 "job": req.body.job,
-                "age": req.body.age
+                "age": req.body.age,
+                "links": links
             }
             let index: number = searchByID(database, nameOrID);
             database.splice(index, 1);
             database.push(profile);
             //res.render('update-success', { data: req.body });
-            res.end(JSON.stringify(profile));
+            
+            res.json(profile);
         } else {
             res.status(400);
             res.send("400: Error in Updated Profile");
@@ -81,8 +116,14 @@ app.route('/members/:memberNameOrID')
         if (!isGUID(nameOrID)) res.sendStatus(400);
         let index: number = searchByID(database, nameOrID);
         database.splice(index, 1);
+
         //res.render('delete-success', { data: nameOrID });
-        res.sendStatus(204);
+        res.status(204);
+        res.json({
+            "links": [
+                addHateoasLink(req.baseUrl + "/register", "create", "POST"),
+                addHateoasLink(req.baseUrl + "/members/", "members", "GET")
+            ]});
     })
 
 app.listen(8080, function () {
@@ -143,3 +184,12 @@ function checkString(input: string, ref: string): number {
     return Math.max(1, charCount);
 }
 
+function addHateoasLink(href:string, rel:string, method:string):object {
+    let link: object = {
+        "href": href,
+        "rel": rel,
+        "method": method
+    }
+
+    return link;
+}
