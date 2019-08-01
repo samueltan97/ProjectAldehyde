@@ -3,16 +3,17 @@
     "",
     "\\BackEndFam",
     "\\BackEndFam\\NodeJS",
-    "\\FrontEndFam",
-    "\\FrontEndFam\\assets",
     "\\Go",
-    "\\Go\\BackEndFam",
+    "\\Go\\GoLangRESTTemp",
     "\\RESTAPIDeck",
+    "\\RESTAPIDeck\\.NETRESTTemplate",
     "\\RESTAPIDeck\\NodeRESTTemplate",
-    "\\RESTAPIDeck\\NodeRESTTemplate\\node_modules",
+    "\\RESTAPIDeck\\NodeRESTTemplate\\node_modules\\@types",
+    "\\RESTAPIDeck\\NodeRESTTemplate\\node_modules\\@types\\express-serve-static-core",
+    "\\RESTAPIDeck\\NodeRESTTemplate\\node_modules\\express",
     "\\RESTAPIDeck\\NodeRESTTemplate\\node_modules\\express-hateoas-links",
     "\\RESTAPIDeck\\NodeRESTTemplate\\node_modules\\express-hateoas-links\\lib"
   ],
-  "SelectedNode": "\\RESTAPIDeck\\NodeRESTTemplate\\node_modules\\express-hateoas-links\\lib\\express-hateoas-links.js",
+  "SelectedNode": "\\RESTAPIDeck\\.NETRESTTemplate",
   "PreviewInSolutionExplorer": false
 }
