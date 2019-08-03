@@ -19,9 +19,11 @@ namespace NetCoreRESTTemplate.Controllers
             _repository = repository;   
         }
         
+        //Get all members
         [HttpGet]
         public ActionResult<IEnumerable<Member>> GetAllMembers()
         {
+            
             return Ok(_repository.GetAllMembers());
         }
 
