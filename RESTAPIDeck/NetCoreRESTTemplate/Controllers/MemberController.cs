@@ -25,6 +25,7 @@ namespace NetCoreRESTTemplate.Controllers
             return Ok(_repository.GetAllMembers());
         }
 
+        
         [HttpGet("{id}")]
         public ActionResult<Member> GetMember(Guid id)
         {

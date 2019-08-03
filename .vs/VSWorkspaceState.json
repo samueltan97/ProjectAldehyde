@@ -5,15 +5,12 @@
     "\\BackEndFam\\NodeJS",
     "\\Go",
     "\\Go\\GoLangRESTTemp",
+    "\\MVCCLIDemo",
+    "\\NodeJS",
     "\\RESTAPIDeck",
     "\\RESTAPIDeck\\.NETRESTTemplate",
-    "\\RESTAPIDeck\\NodeRESTTemplate",
-    "\\RESTAPIDeck\\NodeRESTTemplate\\node_modules\\@types",
-    "\\RESTAPIDeck\\NodeRESTTemplate\\node_modules\\@types\\express-serve-static-core",
-    "\\RESTAPIDeck\\NodeRESTTemplate\\node_modules\\express",
-    "\\RESTAPIDeck\\NodeRESTTemplate\\node_modules\\express-hateoas-links",
-    "\\RESTAPIDeck\\NodeRESTTemplate\\node_modules\\express-hateoas-links\\lib"
+    "\\RESTAPIDeck\\NetCoreRESTTemplate"
   ],
-  "SelectedNode": "\\RESTAPIDeck\\.NETRESTTemplate",
+  "SelectedNode": "\\MVCCLIDemo\\index.js",
   "PreviewInSolutionExplorer": false
 }
